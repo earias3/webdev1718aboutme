@@ -1,0 +1,74 @@
+<DOCTYPE html>
+
+    <html>
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+        </script>
+        <script>
+            $(document).ready(function() {
+                $("button").click(function() {
+                    //console.log("clicked");
+                    $.ajax({
+                        url: "https://data.cityofchicago.org/resource/cwig-ma7x.json",
+                        success: function(result) {
+                            console.log(result);
+                            var output = "";
+
+                            $.each(result, function(index, value) {
+                                //console.log(index + " " + value);
+
+                                // output += "<div class='output'>" + value.building_street + " " + value.original_lse_report_approved + "</div>";
+
+                                $("#results").append("<div>" + value.aka_name + "<br>" + value.facility_type + "<br>" + value.results + "<br> " + value.address + "</div>");
+
+                            });
+                            //$("#results").html(output);
+
+                        }
+                    })
+                });
+            });
+        </script>
+
+
+        <style>
+            <style>p,
+            h1 {
+                font-family: helvetica;
+            }
+
+            p {
+                font-size: 1.5em;
+                line-height: 1.5em;
+                margin-left: 24px;
+            }
+
+            pre {
+                font-size: 2em;
+            }
+
+            div {
+                border: 1px solid black;
+                margin: 4px;
+                border-radius: 5px;
+                background-color: #ededed
+            }
+        </style>
+        </style>
+    </head>
+
+    <body>
+
+        <div id="div1">
+            <h2>jQuery and APIs</h2>
+        </div>
+
+        <button>Events</button>
+
+        <div id="results">
+
+        </div>
+    </body>
+
+    </html>
