@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #myCanvas {
+            background-color: teal;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        //var turtle= {x:100, y:200, speed:1.5};
+
+        function initials(x, y) {
+            //E
+            ctx.moveTo(x * 100, y + 150);
+            ctx.lineTo(x * 50, y + 150);
+            ctx.lineTo(x * 50, y + 200);
+            ctx.lineTo(x * 90, y + 200);
+            ctx.lineTo(x * 50, y + 200);
+            ctx.lineTo(x * 50, y + 250);
+            ctx.lineTo(x * 100, y + 250);
+            ctx.lineTo(x * 100, y + 240);
+            ctx.lineTo(x * 60, y + 240);
+            ctx.lineTo(x * 60, y + 200);
+            ctx.lineTo(x * 90, y + 200);
+            ctx.lineTo(x * 90, y + 190);
+            ctx.lineTo(x * 60, y + 190);
+            ctx.lineTo(x * 60, y + 160);
+            ctx.lineTo(x * 100, y + 160);
+            ctx.lineTo(x * 100, y + 150);
+            ctx.stroke();
+            //A
+            ctx.moveTo(x * 200, y + 250);
+            ctx.lineTo(x * 180, y + 150);
+            ctx.lineTo(x * 160, y + 150);
+            ctx.lineTo(x * 140, y + 250);
+            ctx.lineTo(x * 150, y + 250);
+            ctx.lineTo(x * 160, y + 200);
+            ctx.lineTo(x * 180, y + 200);
+            ctx.lineTo(x * 190, y + 250);
+            ctx.lineTo(x * 200, y + 250);
+            ctx.stroke();
+            ctx.moveTo(x * 160, y + 190);
+            ctx.lineTo(x * 180, y + 190);
+            ctx.lineTo(x * 175, y + 170);
+            ctx.lineTo(x * 165, y + 170);
+            ctx.lineTo(x * 160, y + 190);
+            ctx.stroke();
+
+        };
+        initials(1, 0)
+
+
+        //ctx.clearRect(0, 0, 400, 400);
+    </script>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var raf;
+        var circle = {
+            y: 150,
+            x: 150,
+            speedx: Math.floor(Math.random() * 20) + 5,
+            speedy: Math.floor(Math.random() * 30) + 5,
+            radius: 25,
+            colour: 'white',
+            draw: function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fillStyle = this.colour
+                ctx.fill();
+
+
+
+            }
+        };
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            circle.draw();
+            circle.x += circle.speedx;
+            circle.y += circle.speedy;
+
+
+            if (circle.y + circle.speedy > canvas.height ||
+                circle.y + circle.speedy < 0) {
+                circle.speedy = -circle.speedy;
+                circle.speedy *= .5
+            }
+            if (circle.x + circle.speedx > canvas.width ||
+                circle.x + circle.speedx < 0) {
+                circle.speedx = -circle.speedx;
+                circle.speedx *= .8
+            }
+
+
+
+
+            raf = window.requestAnimationFrame(draw);
+        }
+
+        canvas.addEventListener('mouseover', function(e) {
+            raf = window.requestAnimationFrame(draw);
+
+        });
+
+        canvas.addEventListener('mouseout', function(e) {
+            window.cancelAnimationFrame(raf);
+
+        });
+
+        circle.draw();
+    </script>
+
+
+
+</body>
+
+</html>
