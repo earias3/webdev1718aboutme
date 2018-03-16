@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pacifico', cursive;
+        }
+    </style>
+
+</head>
+
+<body background="pics2/b.png">
+    <canvas onclick="myFunction(event)" id="myCanvas" width="1920" height="983" style="border:3px solid #ff0043;"></canvas>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <canvas id="myCanvas" width="1920" height="983">
+      Your browser does not support the HTML5 canvas tag.</canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var score = 0;
+        var lives = 5;
+        var randx = Math.random() * 1920;
+        var randy = Math.random() * 900;
+        ctx.textAlign = "center";
+        ctx.font = "30px Pacifico";
+        ctx.fillStyle = "white";
+        ctx.fillText("Lives: " + lives, 60, 30);
+        ctx.fillText("Score: " + score, 430, 30);
+        ctx.fillStyle = "#ff0043";
+        ctx.fillRect(randx, randy, 15, 15);
+
+        function myFunction(event) {
+            var xpos = event.clientX;
+            var ypos = event.clientY;
+            if (xpos >= randx && xpos <= randx + 50 && ypos >= randy && ypos <= randy + 50) {
+                ctx.clearRect(0, 0, 1920, 983);
+                score++;
+                ctx.fillStyle = "white";
+                ctx.fillText("Score: " + score, 430, 30);
+                ctx.fillText("Lives: " + lives, 60, 30);
+                randx = Math.random() * 1920;
+                randy = Math.random() * 900;
+                ctx.fillStyle = "#ff0043";
+                ctx.fillRect(randx, randy, 15, 15);
+            }
+            else {
+                ctx.clearRect(0, 0, 1920, 983);
+                lives--;
+                ctx.fillStyle = "white";
+                ctx.fillText("Score: " + score, 430, 30);
+                ctx.fillText("Lives: " + lives, 60, 30);
+                randx = Math.random() * 1920;
+                randy = Math.random() * 900;
+                ctx.fillStyle = "#ff0043";
+                ctx.fillRect(randx, randy, 15, 15);
+                if (lives == 0) {
+                    alert("Game Over");
+                    location.reload();
+                }
+            }
+            if (score == 15 && lives == 5) {
+                alert("Perfect Game!");
+                location.reload();
+            }
+            else if (score == 15) {
+                alert("You Won!");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>
